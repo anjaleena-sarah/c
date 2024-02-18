@@ -1,0 +1,21 @@
+#include <stdio.h>
+int a, b = 3; // Global variable
+void global()  {
+    printf("Value of a = %d, b = %d (Global Variable)\n", a, b);
+}
+void stat()  {
+    static int x = 4; // Static variable
+    printf("Value of x = %d (Static Variable)\n", x++);
+}
+void reg() {
+    int m, n = 3, p = 6;
+    m = n + p; // Register Variable
+    m = m + 10;
+    printf("Value of m = %d (Register Variable)\n", m);
+}
+int main() {
+    int i, c = 2; // Local variable
+    printf("Value of i = %d, c = %d (Local Variable)\n", i, c);
+    global(); stat();  stat(); reg();
+    return 0;
+}
