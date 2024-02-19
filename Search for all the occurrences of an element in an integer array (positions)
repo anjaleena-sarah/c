@@ -1,0 +1,29 @@
+#include <stdio.h>
+int main()
+{
+    int arr[50], n, i;
+    int num, count=0;
+    printf("Enter total number of elements in an array : ");
+    scanf("%d", &n);
+
+    //read array elements
+    printf("Enter array elements :\n");
+    for (i = 0; i < n; i++) {
+        printf("Enter element a[%d]: ", i);
+        scanf("%d", &arr[i]);
+    }
+
+    printf("\nEnter number to find Occurrence : ");
+    scanf("%d", &num);
+
+    //count occurance of num
+    for (i = 0; i < n; i++) {
+        if (arr[i] == num)
+            count++;
+    }
+
+
+
+    printf("\nOccurrence of %d is %d ", num, count);
+    return 0;
+}
