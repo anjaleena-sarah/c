@@ -1,0 +1,30 @@
+#include<stdio.h>
+int dispArrRev(int a[10],int size)
+{
+    if(size==0)
+    {
+   	 return 0;
+    }
+    else
+   {
+   	 size=size-1;
+   	 printf("%d ",a[size]);
+   	 return dispArrRev(a,size);
+    }
+}
+
+void main()
+{
+    int size,i,a[10];
+    printf("Enter the array size: ");
+    scanf("%d",&size);
+
+    for(i=0;i<size;i++)
+    {
+   	 printf("Enter the element a[%d]: ",i+1);
+   	 scanf("%d",&a[i]);
+    }
+
+    printf("\nArray elements in reverse order : ");
+    dispArrRev(a,size);
+}
