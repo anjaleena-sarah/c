@@ -1,0 +1,153 @@
+//C Program for Medical Store Management using the data structure ARRAY
+#include <stdio.h>
+#include <string.h>
+#define MAX_MED 100
+
+struct med
+{
+    char name[100];
+    int qty;
+    float price;
+};
+
+struct med inven[MAX_MED];
+int medCount = 0;
+
+void insert() 
+{
+    if (medCount < MAX_MED) 
+    {
+        printf(" Enter medicine name: ");
+        scanf("%s", inven[medCount].name);
+        printf(" Enter medicine quantity: ");
+        scanf("%d", &inven[medCount].qty);
+        printf(" Enter medicine price: ");
+        scanf("%f", &inven[medCount].price);
+        medCount++;
+        printf(" Medicine added successfully...\n");
+    } 
+    else 
+    {
+        printf(" Inventory is full. Cannot add more medicines...\n");
+    }
+}
+
+void display() 
+{
+	int i;
+    printf("\nMedicine inventory:\n");
+    for (i = 0; i < medCount; i++) 
+    {
+        printf(" MEDICINE %d\n", i + 1);
+        printf(" Name: %s\n", inven[i].name);
+        printf(" Quantity: %d\n", inven[i].qty);
+        printf(" Price: %f\n\n", inven[i].price);
+    }
+}
+
+void sort() 
+{
+	int i,j;
+    for (i = 0; i < medCount; i++) 
+    {
+        for (j = i + 1; j < medCount; j++) 
+        {
+            if (strcmp(inven[i].name, inven[j].name) > 0) 
+            {
+                //Swapping the medicines
+                struct med temp = inven[i];
+                inven[i] = inven[j];
+                inven[j] = temp;
+            }
+        }
+    }
+    printf(" Medicines sorted by name.\n");
+}
+
+void search() 
+{
+	int i;
+    char searchName[100];
+    printf(" Enter the name of the medicine to search: ");
+    scanf("%s", searchName);
+
+    for (i = 0; i < medCount; i++) 
+    {
+        if (strcmp(inven[i].name, searchName) == 0) 
+        {
+            printf(" Medicine found:\n");
+            printf(" Name: %s\n", inven[i].name);
+            printf(" Quantity: %d\n", inven[i].qty);
+            printf(" Price: %f\n", inven[i].price);
+            return;
+        }
+    }
+
+    printf(" Medicine not found in the inventory\n");
+}
+
+void delete() 
+{
+    int index,i;
+    printf(" Enter the index of the medicine to delete(1-n): ");
+    scanf("%d", &index);
+
+    if (index >= 1 && index <= medCount) 
+    {
+        for (i = index - 1; i < medCount - 1; i++) 
+        {
+            inven[i] = inven[i + 1];
+        }
+        medCount--;
+        printf(" Medicine deleted successfully.\n");
+    } 
+    else 
+    {
+        printf(" Invalid index...No such medicine found.\n");
+    }
+}
+
+int menu() 
+{
+    int ch;
+    printf("\nMedical Store Management System\n 1. Insert Medicine\n 2. Display Medicines\n 3. Sort Medicines by Name\n 4. Search Medicine\n 5. Delete Medicine\n 6. Exit\n Enter your choice: ");
+    scanf("%d", &ch);
+    return ch;
+}
+void process()
+{
+	int ch;
+	for(ch=menu();ch!=6;ch=menu())
+	{
+        switch (ch) 
+		{
+            case 1: insert();
+                    break;
+            case 2: display();
+                    break;
+            case 3: sort();
+                    break;
+            case 4: search();
+                    break;
+            case 5: delete();
+                    break;
+            case 6: printf(" Exiting the program....\n");
+                    break;
+            default:printf(" Invalid choice...Please try again.\n");
+        }
+    }
+}
+int main()
+{
+	process();
+	return 0;
+}
+
+
+
+
+
+
+
+
+
