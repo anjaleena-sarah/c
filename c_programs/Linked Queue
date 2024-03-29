@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <malloc.h>
+struct node 
+{
+    int data;
+    struct node *next;
+};
+typedef struct node queue;
+enum op{ENQUEUE=1,DEQUEUE,DISPLAY,EXIT};
+queue *f=NULL,*r = NULL,*t;
+void enqueue(int e)
+{
+    queue *t = (queue *)malloc(sizeof(queue));
+    t->data = e;
+    t->next = NULL;
+    if(f == NULL)
+    {
+        f = t;
+        r = t;
+    }
+    else
+    {
+        r->next = t;
+        r = t;
+    }
+}
+void dequeue() 
+{
+    if(f == NULL)
+        printf("\nEmpty QUEUE");
+    else {
+        printf("\nDeleted Element is %d",f->data);
+        f = f->next;
+        if(f == NULL)
+            r = NULL;
+    }
+}
+void display()
+{
+    if(f==NULL)
+    {
+        printf("Queue is Empty\n");
+    }
+    else
+    {
+        t=f;
+        printf("Queue Elements are : ");
+        while(t!=NULL)
+        {
+            printf("%d ",t->data);
+            t=t->next;
+        }
+        printf("\n");
+    }
+}
+int menu() {
+    int ch;
+
+    printf("\nQUEUE OPERATIONS\nENQUEUE - 1\nDEQUEUE - 2\nDISPLAY - 3\nEXIT - 4\nEnter your choice : ");
+    scanf("%d",&ch);
+    return ch;
+}
+void processQueue()
+{
+    int ch;
+    for(ch = menu();ch!= 4;ch = menu()) 
+    {
+        switch(ch) 
+        {
+            case ENQUEUE:
+                 printf("Enter the element to enqueue : ");
+                 scanf("%d",&ch);
+                 enqueue(ch);
+                 break;
+            case DEQUEUE:
+                 dequeue();
+                 break;
+            case DISPLAY:
+                 display();
+                 break;
+            default : printf("Invalid Choice");
+        }
+    }
+}
+int main() {
+    processQueue();
+    return 0;
+}
