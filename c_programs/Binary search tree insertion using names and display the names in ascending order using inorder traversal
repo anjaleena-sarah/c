@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+/* defining structure */
+struct node {
+char name[20];
+struct node *left, *right;
+};
+typedef struct node tree;
+/* Making root as NULL */
+tree *root=NULL;
+/* Inserting elements to tree */
+void insert(char e[20])
+{
+tree *t, *x;
+if(root==NULL)
+{
+root= (tree*)malloc(sizeof(tree));
+strcpy(root->name,e);
+root->left=NULL;	
+root->right=NULL;
+}
+else
+{
+t=root;
+
+while(t != NULL) 
+{
+x=t;
+if(strcmp(t->name,e) == 0) 
+{
+printf("Duplication");
+return;
+}
+else if(strcmp(t->name,e) > 0) 
+{
+t=t->left;
+}
+else 
+{
+t=t->right;
+}
+}
+if(strcmp(x->name,e) > 0)
+{
+x->left = (tree*)malloc(sizeof(tree));
+strcpy(x->left->name,e);
+x->left->left=NULL;
+x->left->right=NULL;
+}
+else
+{
+x->right = (tree*)malloc(sizeof(tree));
+strcpy(x->right->name,e);		
+x->right->left=NULL;
+x->right->right=NULL;
+}
+}
+}
+/* inorder traversal */
+void inorder(tree *r)
+{
+if(r != NULL)
+{
+inorder(r->left);
+printf("\t%s",r->name);
+inorder(r->right);
+}
+}
+/* pre order traversal */
+void preorder(tree *r)
+{
+if(r != NULL)
+{
+printf("\t%s",r->name);
+preorder(r->left);
+preorder(r->right);
+}
+}
+/* post order traversal */
+void postorder(tree *r)
+{
+if(r != NULL)
+{
+postorder(r->left);
+postorder(r->right);
+printf("\t%s",r->name);
+
+}
+}
+int main()
+{
+insert("Senita");
+insert("Leya");
+insert("Anjaleena");
+insert("Elna");
+insert("Jewel");
+insert("Glereena");
+printf("\nInorder : ");
+inorder(root);
+printf("\nPreorder : ");
+preorder(root);
+printf("\nPostorder : ");
+postorder(root);
+return 0;
+}
