@@ -1,0 +1,46 @@
+#include <stdio.h>
+#define V 4
+int adjMatrix[V][V];
+/* Initialize the matrix to zero */
+void init()
+{
+ int i, j;
+ 	for (i = 0; i < V; i++)
+ 	for (j = 0; j < V; j++)
+ 		adjMatrix[i][j] = 0;
+}
+/* Add edges*/
+void addEdge(int i, int j)
+{
+ adjMatrix[i][j] = 1;
+ 	adjMatrix[j][i] = 1;
+}
+/* Print the matrix*/
+void printAdjMatrix()
+{
+ 	int i, j;
+ 	for (i = 0; i < V; i++)
+ 	{
+ 		printf("%d: ", i);
+
+
+ 		for (j = 0; j < V; j++)
+{
+
+ 			printf("%d ", adjMatrix[i][j]);
+ 		}
+ printf("\n");
+ }
+}
+int main()
+{
+init();
+ 	printf("Adjacency Matrix : \n\n");
+addEdge(0, 1);
+ 	addEdge(0, 2);
+ 	addEdge(0, 3);
+ 	addEdge(1, 2);
+ 	/* Printing adjacency matrix */
+ 	printAdjMatrix();
+return 0;
+}
