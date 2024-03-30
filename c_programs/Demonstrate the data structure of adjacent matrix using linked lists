@@ -1,0 +1,69 @@
+#include <stdio.h>
+#include <stdlib.h>
+/* Defining structure node */
+struct node 
+{
+ 	int vertex;
+ 	struct node* next;
+};
+/* Defining structure graph*/
+struct Graph
+{
+ 	int numVertices;
+ 	struct node** adjLists;
+};
+struct Graph* graph;
+/* Create a graph*/
+void createAGraph(int vertices)
+{
+ 	graph = malloc(sizeof(struct Graph));
+ 	graph->numVertices = vertices;
+ 	graph->adjLists = malloc(vertices * sizeof(struct node*));
+int i;
+ 	for (i = 0; i < vertices; i++)
+   	graph->adjLists[i] = NULL;
+}
+
+
+/* Add edge */
+void addEdge(int s, int d) 
+{
+/* Add edge from s to d*/
+ 	struct node* newNode1 = malloc(sizeof(struct node));
+ 	newNode1->vertex = d;
+ 	newNode1->next = graph->adjLists[s];
+ 	graph->adjLists[s] = newNode1;
+/* Add edge from d to s*/
+ 	struct node* newNode2 = malloc(sizeof(struct node));
+ 	newNode2->vertex = s;
+newNode2->next = graph->adjLists[d];
+graph->adjLists[d] = newNode2;
+}
+/* Print the graph*/
+void printGraph()
+{
+ int v;
+ 	for (v = 0; v < graph->numVertices; v++)
+ 	{
+ 		struct node* temp = graph->adjLists[v];
+ 		printf("\n Vertex %d : ", v);
+ 		while (temp)
+{
+ 		printf("%d -> ", temp->vertex);
+ 			temp = temp->next;
+ 		}
+ 	}
+}
+
+
+int main()
+{
+ 	createAGraph(4);
+printf("Adjacency List : \n");
+ 	addEdge(0, 1);
+ 	addEdge(0, 2);
+ 	addEdge(0, 3);
+ 	addEdge(1, 2);
+ 	printGraph();
+return 0;
+}
