@@ -1,0 +1,108 @@
+#include <stdio.h>
+#include <stdlib.h>
+// Structure for a term in a polynomial
+typedef struct Term {
+    int coefficient;
+    int exponent;
+    struct Term* next;
+} Term;
+// Structure for a linked list of terms (polynomial)
+typedef struct Polynomial {
+    Term* head;
+} Polynomial;
+// Function to add a term to a polynomial
+void addTerm(Polynomial* poly, int coeff, int exp) {
+    Term* newTerm = (Term*)malloc(sizeof(Term));
+    newTerm->coefficient = coeff;
+    newTerm->exponent = exp;
+    newTerm->next = NULL;
+    if (poly->head == NULL) {
+        poly->head = newTerm;
+    } else {
+        Term* current = poly->head;
+        while (current->next != NULL) {
+            current = current->next;
+        }
+        current->next = newTerm;
+    }
+}
+// Function to display a polynomial
+void displayPolynomial(Polynomial* poly) {
+    Term* current = poly->head;
+    while (current != NULL) {
+        printf("%dx^%d ", current->coefficient, current->exponent);
+        current = current->next;
+        if (current != NULL) {
+            printf("+ ");
+        }
+    }
+    printf("\n");
+}
+// Function to add two polynomials
+Polynomial addPolynomials(Polynomial* poly1, Polynomial* poly2) {
+    Polynomial result;
+    result.head = NULL;
+    Term* term1 = poly1->head;
+    Term* term2 = poly2->head;
+    while (term1 != NULL && term2 != NULL) {
+        if (term1->exponent > term2->exponent) {
+            addTerm(&result, term1->coefficient, term1->exponent);
+            term1 = term1->next;
+        } else if (term1->exponent < term2->exponent) {
+            addTerm(&result, term2->coefficient, term2->exponent);
+            term2 = term2->next;
+        } else {
+            addTerm(&result, term1->coefficient + term2->coefficient, term1->exponent);
+            term1 = term1->next;
+            term2 = term2->next;
+        }
+    }
+    // Add remaining terms
+    while (term1 != NULL) {
+        addTerm(&result, term1->coefficient, term1->exponent);
+        term1 = term1->next;
+    }
+    while (term2 != NULL) {
+        addTerm(&result, term2->coefficient, term2->exponent);
+        term2 = term2->next;
+    }
+    return result;
+}
+// Function to multiply two polynomials
+Polynomial multiplyPolynomials(Polynomial* poly1, Polynomial* poly2) {
+    Polynomial result;
+    result.head = NULL;
+    Term* term1 = poly1->head;
+    while (term1 != NULL) {
+        Term* term2 = poly2->head;
+        while (term2 != NULL) {
+            addTerm(&result, term1->coefficient * term2->coefficient, term1->exponent + term2->exponent);
+            term2 = term2->next;
+        }
+        term1 = term1->next;
+    }
+    return result;
+}
+int main() {
+    Polynomial poly1, poly2, sum, product;
+
+
+    poly1.head = poly2.head = sum.head = product.head = NULL;
+    addTerm(&poly1, 3, 3);  
+    addTerm(&poly1, 4, 2);  
+    addTerm(&poly1, 5, 1);  
+    addTerm(&poly2, 2, 3);  
+    addTerm(&poly2, 1, 2);  
+    addTerm(&poly2, 3, 1);  
+    printf("Polynomial 1: ");
+    displayPolynomial(&poly1);
+    printf("Polynomial 2: ");
+    displayPolynomial(&poly2);
+    sum = addPolynomials(&poly1, &poly2);
+    printf("Sum: ");
+    displayPolynomial(&sum);
+    product = multiplyPolynomials(&poly1, &poly2);
+    printf("Product: ");
+    displayPolynomial(&product);
+    return 0;
+}
