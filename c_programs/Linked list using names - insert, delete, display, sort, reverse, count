@@ -1,0 +1,161 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+/* initializing count =0 */
+int count=0;
+/* defining the structure */
+struct NODE {
+	char name[50];
+	struct NODE *next;
+};
+typedef struct NODE nlist;
+nlist *head=NULL;
+/*insert function */
+void ins(char e[50]) {
+	nlist *t;
+	if(head == NULL)
+	{
+		head =(nlist*)malloc(sizeof(nlist));
+		strcpy(head->name,e);
+		head->next=NULL;
+		printf("Added %s \n\n",e);
+		count++;
+	}
+	else
+	{
+		t=head;
+		while(t->next != NULL)
+		{
+			t=t->next;
+		}
+		t->next=(nlist*)malloc(sizeof(nlist));
+		strcpy(t->next->name,e);
+		t->next->next=NULL;
+		printf("Added %s \n\n",e);
+		count++;
+	}
+}
+/*delete function */
+void del(char e[50]) {
+	int f=0;
+	nlist *t;
+	if(head==NULL)
+	{
+		printf("\nList is empty\n");
+	}
+	else if(strcmp(head->name,e)==0)
+	{
+		printf("Deleted %s\n\n",head->name);
+		count--;
+		if(head->next==NULL)
+			head=NULL;
+		else
+			head=head->next;
+	}
+else
+{
+	t=head;
+
+	while(t ->next != NULL) {
+		if(strcmp(t->next->name,e)==0)
+		{
+			f=1;
+			break;
+		}
+		t=t->next;
+	}
+	if(f=0)
+		printf("\nElement not Found\n\n");
+	else {
+		printf("Deleted %s\n\n",t->next->name);
+		count--;
+		if(t->next->next == NULL)
+		t->next=NULL;
+		else
+		t->next = t->next->next;
+		}
+	}
+}
+/* sort function */
+void sort() {
+	nlist *i=head,*j;
+	char temp[50];
+	while(i != NULL)
+	{
+		j=i->next;
+		while(j != NULL)
+		{
+			if(strcmp(i->name,j->name)>0)
+			{
+				strcpy(temp,i->name);
+				strcpy(i->name,j->name);
+				strcpy(j->name,temp);
+			}
+			j=j->next;
+		}
+		i=i->next;
+	}
+}
+/*display function */
+void display() {
+	nlist *t;
+	if(head == NULL)
+	{
+		printf("\nList is empty");
+	}
+	else
+	{
+		t=head;
+		printf("\nList -\t");
+		while(t != NULL) {
+			printf("%s\t",t->name);
+			t=t->next;
+		}
+		printf("\n\n");
+	}
+}
+/* reversing the string */
+void printReverse(nlist *temp) {
+	if(temp==NULL)
+
+	return;
+	printReverse(temp->next);
+	printf("%s\t",temp->name);
+}
+int main() {
+	int choice;
+	char n[20];
+	while(choice != 7)  {
+		printf("\n******** MENU ********\n");
+		printf("1. Insert\n2. Delete\n3. Display\n4. Sort\n5. Print Reverse\n6. Count\n7. Exit\n");
+		printf("Enter your choice : ");
+		scanf("%d",&choice);
+		/* menu driven */
+		switch(choice) {
+			case 1: printf("\nEnter name : ");
+					scanf("%s",n);
+					ins(n);
+					break;
+			case 2: printf("\nEnter name to be deleted : ");
+					scanf("%s",n);
+					del(n);
+					break;
+			case 3: display();
+					break;
+			case 4: sort();
+					printf("\n\nAfter Sorting -");
+					display();
+					break;
+			case 5: printf("\n Reverse List - ");
+					printReverse(head);
+
+					printf("\n\n");
+					break;
+			case 6: printf("\nNo. of Elements = %d\n\n",count);
+					break;
+			case 7: printf("Exiting...");
+					break;
+			default:printf("Invalid Choice");
+		}
+	} return 0;
+}
