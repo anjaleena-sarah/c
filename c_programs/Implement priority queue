@@ -3,7 +3,7 @@ void heaptree(int a[], int n,int e) {
  	int i,t;
 	i = n;
  	a[i] = e;
- 	while(i != 0) {
+ 	while(i != 0) { 
  		if(a[i] < a[(i-1)/2]) {
  			break;
  		}
