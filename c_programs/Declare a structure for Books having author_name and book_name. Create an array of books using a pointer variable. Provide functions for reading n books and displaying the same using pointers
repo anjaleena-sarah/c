@@ -1,0 +1,39 @@
+#include<stdio.h>
+#include<malloc.h>
+struct Book {
+	char author_name[30];
+	char book_name[30];
+};
+void read(struct Book *p, int n) {
+	int i;
+	printf("Enter the details\n\n");
+	for(i=0;i<n;i++)
+	{
+		printf("\nBook %d\n",i+1);
+printf("Enter the name of the book : ");//put space before % to prevent skiping of the input
+		scanf(" %[^\n]",(p + i)->book_name); 
+printf("Enter the name of the author : ");//put space before % to prevent skiping of the input
+		scanf(" %[^\n]",(p + i)->author_name);
+		printf("\n");
+	}
+}
+void display(struct Book *p, int n) {
+	int i;
+	printf("\n\n------Book Details---------\n\n");
+	for(i=0;i<n;i++)
+	{
+		printf("\nBook %d\n",i+1);
+		printf("Name : %s\n",(p + i)->book_name);
+		printf("Author : %s",(p + i)->author_name);
+		printf("\n");
+	}
+}
+void main()  {
+	struct Book *p;
+	int n;
+	printf("Enter the number of books : ");
+	scanf("%d",&n);
+	p = (struct Book *)malloc(n*sizeof(struct Book));
+	read(p,n);
+	display(p,n);	
+}
