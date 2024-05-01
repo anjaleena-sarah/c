@@ -1,0 +1,119 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node
+{
+    int data;
+    struct node *prev;
+    struct node *next;
+};
+struct node *head=NULL;
+void insert(int e)
+{
+    struct node *t;
+    if(head==NULL)
+    {
+        head=(struct node*)malloc(sizeof(struct node));
+        head->data=e;
+        head->next=head;
+        head->prev=head;
+    }
+    else
+    {
+        t=head;
+        while(t->next!=head)
+        {
+            t=t->next;
+        }
+
+        t->next=(struct node*)malloc(sizeof(struct node));
+        t->next->data=e;
+        t->next->next=head;
+        t->next->prev=t;
+        head->prev=t->next;
+    }
+}
+void display()
+{
+    struct node *t;
+    if(head==NULL)
+    {
+        printf("Circular Doubly Linked List is Empty");
+    }
+    else
+    {
+        t=head;
+        do
+        {
+            printf("%d\t",t->data);
+            t=t->next;
+        }while(t!=head);
+    }
+}
+void delete(int e)
+{
+    struct node *t;
+    if(head==NULL)
+    {
+        printf("Circular Doubly Linked List is Empty");
+    }
+    else if(head->data == e && head->next==head)//first element with one element
+    {
+        head=NULL;
+    }
+    else if(head->data==e)//first element but several
+    {
+        head->prev->next=head->next;
+        head->next->prev=head->prev;
+        head=head->next;//moving head to 2nd element
+    }
+    else
+    {
+        t=head->next;//traversing the list to find
+        while(t!=head && t->data!=e)
+        {
+            t=t->next;
+        }
+        if(t==head)
+        {
+            printf("Element not found");
+        }
+        else//deleting the intermediate node
+        {
+            t->prev->next=t->next;
+            t->next->prev=t->prev;
+        }
+    }
+}
+int menu()
+{
+
+    int ch;
+    printf("\nCircular Doubly Linked List\nInsert - 1\nDelete - 2\nDisplay - 3\nExit - 4\n");
+    printf("Enter your choice : ");
+    scanf("%d",&ch);
+    return ch;
+
+int main()
+{
+    int i,ch,e;
+    for(ch = menu();ch != 4;ch = menu())
+    {
+        switch(ch)
+        {
+            case 1 : printf("Enter the value to be inserted : ");
+            	    scanf("%d",&e);
+		    insert(e);
+                          break;
+            case 2 : printf("Enter the value to be deleted : ");
+                    	    scanf("%d",&e);
+	                delete(e);
+                            break;
+            case 3 : printf("Elements are : ");
+  			    display();
+                           break;
+            default : printf("Wrong Choice!!!\n");
+                            break;
+        };
+    }
+    return 0;
+}
