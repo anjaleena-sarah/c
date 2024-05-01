@@ -1,1 +1,63 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void addPolynomials(int poly1[], int poly2[], int num1, int num2) 
+{
+    int i, maxDegree;
+
+    // Find the maximum degree between the two polynomials
+    maxDegree = (num1 > num2) ? num1 : num2;
+
+    // Add the coefficients of both polynomials and store the result in the first polynomial
+    for (i = 0; i <= maxDegree; i++) {
+        poly1[i] = poly1[i] + poly2[i];
+    }
+}
+
+void printPolynomial(int poly[], int num) 
+{
+    int i;
+    for (i = num; i >= 0; i--) {
+        if (poly[i] != 0) 
+       {
+            printf("%dx^%d", poly[i], i);
+            if (i > 0) 
+           {
+
+                printf(" + ");
+            }
+        }
+    }
+    printf("\n");
+}
+
+int main() 
+{
+    int poly1[100], poly2[100];
+    int num1, num2, i;
+
+    printf("Enter the order of the first polynomial: ");
+    scanf("%d", &num1);
+    printf("Enter the coefficients of the first polynomial (from highest degree to constant term):\n");
+    for (i = num1; i >= 0; i--) 
+   {
+        scanf("%d", &poly1[i]);
+    }
+
+    printf("Enter the order of the second polynomial: ");
+    scanf("%d", &num2);
+    printf("Enter the coefficients of the second polynomial (from highest degree to constant term):\n");
+
+    for (i = num2; i >= 0; i--) 
+   {
+        scanf("%d", &poly2[i]);
+    }
+
+
+    // Adding the two polynomials
+    addPolynomials(poly1, poly2, num1, num2);
+    printf("Sum of the two polynomials: ");
+    printPolynomial(poly1, (num1 > num2) ? num1 : num2);
+    return 0;
+}
  
