@@ -5,7 +5,7 @@
 struct node {
 char name[20];
 struct node *left, *right;
-};
+}; 
 typedef struct node tree;
 /* Making root as NULL */
 tree *root=NULL;
