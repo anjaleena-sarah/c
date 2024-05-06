@@ -2,7 +2,7 @@
 int coeff1[10], coeff2[10], coeff3[10],i;
 int read(int degree) {
     printf("\nEnter the elements of 1st polynomial: \n");
-    for(i=degree;i>=0;i--)
+    for(i=degree;i>=0;i--) 
     {
    	 if(i==0)
    	 {
