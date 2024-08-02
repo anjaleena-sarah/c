@@ -3,7 +3,7 @@
 #include <string.h>
 #define MAX_MED 100
  
-struct med
+struct med 
 {
     char name[100];
     int qty;
