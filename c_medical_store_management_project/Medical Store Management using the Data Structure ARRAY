@@ -8,7 +8,7 @@ struct med
     char name[100];
     int qty;
     float price; 
-};
+}; 
 
 struct med inven[MAX_MED];
 int medCount = 0;
